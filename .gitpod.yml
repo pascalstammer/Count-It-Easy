@@ -1,13 +1,28 @@
-image: ghcr.io/cirruslabs/flutter:latest
+# ---------- Gitpod/ONA config for Flutter + TFLite + Web Camera ----------
 
+image:
+  file: .gitpod.Dockerfile
+
+# Initial tasks when the workspace starts
 tasks:
-  - name: Flutter Setup
-    init: flutter precache --ios --web
-    command: |
+  - name: Setup Flutter
+    init: |
+      flutter config --enable-web
+      flutter precache --web
       flutter pub get
-      dart --version
       flutter doctor
+    command: |
+      echo "Starting Flutter dev server..."
+      flutter run -d web-server --web-hostname=0.0.0.0 --web-port=8080
 
+# Open the running Flutter app in a browser tab
 ports:
   - port: 8080
     onOpen: open-browser
+    visibility: public
+
+# VS Code extensions for Flutter development
+vscode:
+  extensions:
+    - Dart-Code.dart-code
+    - Dart-Code.flutter
