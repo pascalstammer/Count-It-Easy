@@ -3,6 +3,10 @@
 # Base image with Flutter preinstalled
 FROM ghcr.io/cirruslabs/flutter:latest
 
+# Ensure Flutter is on PATH
+ENV PATH="/flutter/bin:/usr/local/flutter/bin:${PATH}"
+
+
 # Install Debian UI libs required for Chromium and TFLite WASM
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     chromium \
