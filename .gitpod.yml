@@ -1,0 +1,13 @@
+image: ghcr.io/cirruslabs/flutter:latest
+
+tasks:
+  - name: Flutter Setup
+    init: flutter precache --ios --web
+    command: |
+      flutter pub get
+      dart --version
+      flutter doctor
+
+ports:
+  - port: 8080
+    onOpen: open-browser
